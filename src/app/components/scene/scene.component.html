@@ -1,5 +1,6 @@
 Scale
-<tl-time-ruler [sceneView]="view()" />
+<tl-time-ruler />
 <tl-slot-line />
 <tl-slot-line />
-<pre>{{ view() | json }}</pre>
+<pre>{{ sceneViewService.view() | json }}</pre>
+<pre>{{ sceneViewService.width() | json }}</pre>

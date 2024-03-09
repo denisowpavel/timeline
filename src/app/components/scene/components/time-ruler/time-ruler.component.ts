@@ -8,6 +8,7 @@ import {
 import { TlSceneView } from '../../types/tl-scene';
 import { JsonPipe } from '@angular/common';
 import { INITIAL_SCENE_VIEW } from '../../types/const';
+import { SceneViewService } from '../../services/scene-view.service';
 
 @Component({
   selector: 'tl-time-ruler',
@@ -18,10 +19,10 @@ import { INITIAL_SCENE_VIEW } from '../../types/const';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TimeRulerComponent {
-  sceneView = input<TlSceneView>(INITIAL_SCENE_VIEW);
-  constructor() {
+
+  constructor(public sceneViewService: SceneViewService) {
     effect(() => {
-      console.log('<<', this.sceneView());
+      console.log('<<', this.sceneViewService.width());
     });
   }
 }

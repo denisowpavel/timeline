@@ -1,6 +1,8 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
+  ElementRef,
   HostListener,
   OnInit,
   signal,
@@ -10,6 +12,7 @@ import { TimeRulerComponent } from './components/time-ruler/time-ruler.component
 import { TlSceneView } from './types/tl-scene';
 import { JsonPipe } from '@angular/common';
 import { INITIAL_SCENE_VIEW } from './types/const';
+import { SceneViewService } from './services/scene-view.service';
 
 @Component({
   selector: 'tl-scene',
@@ -19,8 +22,7 @@ import { INITIAL_SCENE_VIEW } from './types/const';
   styleUrl: './scene.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SceneComponent implements OnInit {
-  public view = signal<TlSceneView>(INITIAL_SCENE_VIEW);
+export class SceneComponent implements OnInit, AfterViewInit {
   @HostListener('document:mousewheel', ['$event']) onScrollEvent(
     event: WheelEvent,
   ): void {
@@ -31,13 +33,26 @@ export class SceneComponent implements OnInit {
       this.updateStartTime(event.deltaX || event.deltaY);
     }
   }
-
+  @HostListener('window:resize', ['$event']) onComponentResize() {
+    this.sceneViewService.width.set(
+      this.elementRef.nativeElement.getBoundingClientRect().width,
+    );
+  }
+  constructor(
+    public sceneViewService: SceneViewService,
+    private elementRef: ElementRef,
+  ) {}
   ngOnInit() {}
+  ngAfterViewInit() {
+    this.sceneViewService.width.set(
+      this.elementRef.nativeElement.getBoundingClientRect().width,
+    );
+  }
   updateScale(delta: number) {
-    this.view.update((view) => ({ ...view, scale: (view.scale += delta) }));
+    this.sceneViewService.view.update((view) => ({ ...view, scale: (view.scale += delta) }));
   }
   updateStartTime(delta: number) {
-    this.view.update((view) => {
+    this.sceneViewService.view.update((view) => {
       const timestamp = Math.floor(view.startTime.getTime() / 1000);
       return { ...view, startTime: new Date((timestamp + delta) * 1000) };
     });
