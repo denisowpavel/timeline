@@ -1,6 +1,13 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  effect,
+  input,
+  Input,
+} from '@angular/core';
 import { TlSceneView } from '../../types/tl-scene';
 import { JsonPipe } from '@angular/common';
+import { INITIAL_SCENE_VIEW } from '../../types/const';
 
 @Component({
   selector: 'tl-time-ruler',
@@ -11,5 +18,10 @@ import { JsonPipe } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TimeRulerComponent {
-  @Input() sceneView?: TlSceneView;
+  sceneView = input<TlSceneView>(INITIAL_SCENE_VIEW);
+  constructor() {
+    effect(() => {
+      console.log('<<', this.sceneView());
+    });
+  }
 }
