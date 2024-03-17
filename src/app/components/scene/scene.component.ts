@@ -9,11 +9,8 @@ import {
 } from '@angular/core';
 import { SlotLineComponent } from './components/slot-line/slot-line.component';
 import { TimeRulerComponent } from './components/time-ruler/time-ruler.component';
-import { TlSceneView } from './types/tl-scene';
 import { JsonPipe } from '@angular/common';
-import { INITIAL_SCENE_VIEW } from './types/const';
 import { SceneViewService } from './services/scene-view.service';
-import { transition } from '@angular/animations';
 
 @Component({
   selector: 'tl-scene',
@@ -53,23 +50,13 @@ export class SceneComponent implements OnInit, AfterViewInit {
     if (delta === 0) {
       return;
     }
-          const min = 1;
-      const sensitivity = 0.01;
-
     this.sceneViewService.view.update((view) => {
       let newScale: number;
-      const sensitivity = 0.01;
-
-      // if (delta > 0) {
-      //   newScale = view.scale + ( delta * sensitivity
-      // } else {
-      //   newScale = view.scale / (-1 * delta) * sensitivity
-      // }
-      newScale = view.scale + ( delta * sensitivity );
-      console.log(newScale)
+      const sensitivity = -0.001;
+      newScale = view.lineScale + delta * sensitivity;
       return {
         ...view,
-        scale: newScale,
+        lineScale: newScale,
       };
     });
   }

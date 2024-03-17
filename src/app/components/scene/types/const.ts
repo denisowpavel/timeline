@@ -1,7 +1,7 @@
-import { TlSceneView } from './tl-scene';
+import { ISceneView } from './tl-scene';
 
-export const INITIAL_SCENE_VIEW: TlSceneView = {
-  scale: 2,
+export const INITIAL_SCENE_VIEW: ISceneView = {
+  lineScale: 2,
   startTime: new Date(),
   currentTime: new Date(),
 };

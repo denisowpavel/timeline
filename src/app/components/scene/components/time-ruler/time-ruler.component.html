@@ -3,7 +3,8 @@
 <p>time-ruler</p>
 <div class="ruler">
   <pre>
-    {{sceneViewService.minutesInLine()}}
+    {{sceneViewService.pxInMinute()}} /
+    {{sceneViewService.unitInLine() | json}}
   </pre>
 <!--  @for (minute of sceneViewService.minutesInLine() | enumerate; track minute) {-->
 <!--    <div-->
