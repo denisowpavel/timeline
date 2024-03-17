@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { computed, Injectable, signal } from '@angular/core';
 import { TlSceneView } from '../types/tl-scene';
 import { INITIAL_SCENE_VIEW } from '../types/const';
 
@@ -8,5 +8,16 @@ import { INITIAL_SCENE_VIEW } from '../types/const';
 export class SceneViewService {
   public width = signal<number>(0);
   public view = signal<TlSceneView>(INITIAL_SCENE_VIEW);
+
+  public minutesInLine = computed(() => {
+    const min = Math.trunc(this.width() / this.view().scale);
+    if (min >= 0) {
+      return min;
+    } else {
+      return 0;
+    }
+  });
+
+
   constructor() {}
 }

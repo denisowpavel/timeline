@@ -13,6 +13,7 @@ import { TlSceneView } from './types/tl-scene';
 import { JsonPipe } from '@angular/common';
 import { INITIAL_SCENE_VIEW } from './types/const';
 import { SceneViewService } from './services/scene-view.service';
+import { transition } from '@angular/animations';
 
 @Component({
   selector: 'tl-scene',
@@ -49,7 +50,28 @@ export class SceneComponent implements OnInit, AfterViewInit {
     );
   }
   updateScale(delta: number) {
-    this.sceneViewService.view.update((view) => ({ ...view, scale: (view.scale += delta) }));
+    if (delta === 0) {
+      return;
+    }
+          const min = 1;
+      const sensitivity = 0.01;
+
+    this.sceneViewService.view.update((view) => {
+      let newScale: number;
+      const sensitivity = 0.01;
+
+      // if (delta > 0) {
+      //   newScale = view.scale + ( delta * sensitivity
+      // } else {
+      //   newScale = view.scale / (-1 * delta) * sensitivity
+      // }
+      newScale = view.scale + ( delta * sensitivity );
+      console.log(newScale)
+      return {
+        ...view,
+        scale: newScale,
+      };
+    });
   }
   updateStartTime(delta: number) {
     this.sceneViewService.view.update((view) => {

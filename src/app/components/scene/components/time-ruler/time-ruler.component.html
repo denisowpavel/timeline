@@ -1,3 +1,19 @@
 <pre>{{ sceneViewService.view() | json }}</pre>
 <pre>{{ sceneViewService.width() | json }}</pre>
 <p>time-ruler</p>
+<div class="ruler">
+  <pre>
+    {{sceneViewService.minutesInLine()}}
+  </pre>
+<!--  @for (minute of sceneViewService.minutesInLine() | enumerate; track minute) {-->
+<!--    <div-->
+<!--      [style.width.px]="sceneViewService.view().scale"-->
+<!--      class="minute-division"-->
+<!--    >-->
+<!--&lt;!&ndash;      [ {{ minute }} - {{ sceneViewService.view().scale }}]&ndash;&gt;-->
+
+<!--    </div>-->
+<!--  } @empty {-->
+<!--    WRONG SCALE-->
+<!--  }-->
+</div>
