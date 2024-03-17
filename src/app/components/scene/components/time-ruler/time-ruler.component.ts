@@ -1,23 +1,31 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   effect,
 } from '@angular/core';
-import { JsonPipe, } from '@angular/common';
+import { JsonPipe, NgIf } from '@angular/common';
 import { SceneViewService } from '../../services/scene-view.service';
 import { EnumeratePipe } from '../../../../pipes/enumerate.pipe';
+import { ISceneRuler } from '../../types/tl-scene';
 @Component({
   selector: 'tl-time-ruler',
   standalone: true,
-  imports: [JsonPipe, EnumeratePipe],
+  imports: [JsonPipe, EnumeratePipe, NgIf],
   templateUrl: './time-ruler.component.html',
   styleUrl: './time-ruler.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TimeRulerComponent {
-  constructor(public sceneViewService: SceneViewService) {
+  public unitInLine?: ISceneRuler;
+
+  constructor(
+    public sceneViewService: SceneViewService,
+    private cdr: ChangeDetectorRef,
+  ) {
     effect(() => {
-      const a = this.sceneViewService.unitInLine();
+      this.unitInLine = this.sceneViewService.unitInLine();
+      this.cdr.markForCheck();
     });
   }
 }

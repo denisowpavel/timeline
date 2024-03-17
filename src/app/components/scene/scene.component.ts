@@ -39,8 +39,10 @@ export class SceneComponent implements OnInit, AfterViewInit {
   constructor(
     public sceneViewService: SceneViewService,
     private elementRef: ElementRef,
-  ) {}
-  ngOnInit() {}
+  ) {
+  }
+  ngOnInit() {
+  }
   ngAfterViewInit() {
     this.sceneViewService.width.set(
       this.elementRef.nativeElement.getBoundingClientRect().width,
@@ -50,16 +52,9 @@ export class SceneComponent implements OnInit, AfterViewInit {
     if (delta === 0) {
       return;
     }
-    this.sceneViewService.view.update((view) => {
-      let newScale: number;
-      const sensitivity = -0.001;
-      newScale = view.lineScale + delta * sensitivity;
-      return {
-        ...view,
-        lineScale: newScale,
-      };
-    });
+    this.sceneViewService.updateViewScale(delta);
   }
+
   updateStartTime(delta: number) {
     this.sceneViewService.view.update((view) => {
       const timestamp = Math.floor(view.startTime.getTime() / 1000);

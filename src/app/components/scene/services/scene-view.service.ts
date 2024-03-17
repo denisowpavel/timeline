@@ -1,6 +1,6 @@
 import { computed, Injectable, Signal, signal } from '@angular/core';
 import { ISceneRuler, ISceneView } from '../types/tl-scene';
-import { INITIAL_SCENE_VIEW } from '../types/const';
+import { INITIAL_SCENE_VIEW, SCROLL_SENSITIVITY } from '../types/const';
 
 @Injectable({
   providedIn: 'root',
@@ -15,6 +15,7 @@ export class SceneViewService {
   });
 
   public unitInLine: Signal<ISceneRuler> = computed(() => {
+
     const pxInMinute = this.pxInMinute();
     const minutes = Math.trunc(this.width() / this.pxInMinute());
     const hours = Math.trunc(minutes / 60);
@@ -47,7 +48,7 @@ export class SceneViewService {
       } as ISceneRuler;
     } else {
       return {
-        unitOnScreen: minutes,
+        unitOnScreen: Math.max(1, minutes),
         units: 'minutes',
         pxInUnit: pxInMinute,
       } as ISceneRuler;
@@ -55,4 +56,15 @@ export class SceneViewService {
   });
 
   constructor() {}
+
+  public updateViewScale(delta: number): void {
+    this.view.update((view) => {
+      let newScale: number;
+      newScale = view.lineScale + delta * SCROLL_SENSITIVITY;
+      return {
+        ...view,
+        lineScale: newScale,
+      };
+    });
+  }
 }
