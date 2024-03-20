@@ -25,10 +25,10 @@ export class SceneComponent implements OnInit, AfterViewInit {
     event: WheelEvent,
   ): void {
     if (!event.shiftKey && !event.altKey && event.deltaY !== 0) {
-      this.updateScale(event.deltaY);
+      this.updateStartTime(event.deltaX || event.deltaY);
     }
     if (event.deltaX !== 0 || (event.deltaY !== 0 && event.shiftKey)) {
-      this.updateStartTime(event.deltaX || event.deltaY);
+      this.updateScale(event.deltaY);
     }
   }
   @HostListener('window:resize', ['$event']) onComponentResize() {

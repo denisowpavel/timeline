@@ -2,11 +2,26 @@
   .ruler {
     display: flex;
     flex-direction: row;
-    .minute-division {
+    .unit-division {
       //border: 1px solid red;
-      box-shadow: -1px 0px 0px 0px rgba(0,0,0,.5);
+      box-shadow: -1px 0px 0px 0px rgba(0, 0, 0, 0.5);
       min-width: 1px;
       height: 10px;
+      &.minutes {
+        background-color: #ffcccc;
+      }
+      &.hours {
+        background-color: #ffaaaa;
+      }
+      &.days {
+        background-color: #ff9999;
+      }
+      &.weeks {
+        background-color: #ff7777;
+      }
+      &.years {
+        background-color: #ff5555;
+      }
     }
   }
 }
