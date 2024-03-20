@@ -10,8 +10,8 @@ import { JsonPipe, NgIf, NgClass } from '@angular/common';
 import { SceneViewService } from '../../services/scene-view.service';
 import { EnumeratePipe } from '../../../../pipes/enumerate.pipe';
 import { ISceneRuler } from '../../types/tl-scene';
-import {RulerUnitLabelPipe} from "./pipes/ruler-unit-label.pipe";
-import {RulerUnitTimePipe} from "./pipes/ruler-unit-time.pipe";
+import { RulerUnitLabelPipe } from './pipes/ruler-unit-label.pipe';
+import { RulerUnitTimePipe } from './pipes/ruler-unit-time.pipe';
 @Component({
   selector: 'tl-time-ruler',
   standalone: true,
@@ -35,7 +35,7 @@ export class TimeRulerComponent {
   });
 
   public firstUnitWidth: Signal<number> = computed(() => {
-    const ruler = this.sceneViewService.unitInLine();
+    const ruler = this.sceneViewService.sceneRuler();
     if (ruler?.units === 'minutes') {
       const secondLeft = 60 - this.startTime().getSeconds();
       return (ruler?.pxInUnit / 60) * secondLeft || 0;
@@ -48,7 +48,7 @@ export class TimeRulerComponent {
     private cdr: ChangeDetectorRef,
   ) {
     effect(() => {
-      this.ruler = this.sceneViewService.unitInLine();
+      this.ruler = this.sceneViewService.sceneRuler();
       this.cdr.markForCheck();
     });
   }

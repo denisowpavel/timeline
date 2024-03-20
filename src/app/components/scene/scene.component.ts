@@ -39,27 +39,19 @@ export class SceneComponent implements OnInit, AfterViewInit {
   constructor(
     public sceneViewService: SceneViewService,
     private elementRef: ElementRef,
-  ) {
-  }
-  ngOnInit() {
-  }
+  ) {}
+  ngOnInit() {}
   ngAfterViewInit() {
     this.sceneViewService.width.set(
       this.elementRef.nativeElement.getBoundingClientRect().width,
     );
   }
   updateScale(delta: number) {
-    if (delta === 0) {
-      return;
-    }
     this.sceneViewService.updateViewScale(delta);
   }
 
   updateStartTime(delta: number) {
-    this.sceneViewService.view.update((view) => {
-      const timestamp = Math.floor(view.startTime.getTime() / 1000);
-      return { ...view, startTime: new Date((timestamp + delta) * 1000) };
-    });
+    this.sceneViewService.updateStartTime(delta);
   }
 
   protected readonly JsonPipe = JsonPipe;

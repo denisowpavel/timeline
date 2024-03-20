@@ -11,11 +11,26 @@ export class RulerUnitTimePipe implements PipeTransform {
     if (!startTime || unitIndex < 0 || !ruler) {
       return new Date();
     }
-    if (ruler.units !== 'minutes') {
-      return new Date();
-    }
     const unitTime = new Date(startTime);
-    unitTime.setMinutes(startTime.getMinutes() + unitIndex);
+    switch (ruler.units) {
+      case 'minutes':
+        unitTime.setMinutes(startTime.getMinutes() + unitIndex);
+        break;
+      case 'hours':
+        unitTime.setHours(startTime.getHours() + unitIndex);
+        break;
+      case 'days':
+        unitTime.setDate(startTime.getDate() + unitIndex);
+        break;
+      case 'weeks':
+        unitTime.setDate(startTime.getDate() + unitIndex * 7);
+        break;
+      case 'years':
+        unitTime.setFullYear(startTime.getFullYear() + unitIndex);
+        break;
+      default:
+        return new Date();
+    }
     return unitTime;
   }
 }
