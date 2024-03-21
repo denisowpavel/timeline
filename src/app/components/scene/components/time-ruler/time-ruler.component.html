@@ -1,7 +1,7 @@
 <pre>{{ sceneViewService.view().startTime }}</pre>
 <div class="ruler" *ngIf="ruler">
   @for (unitIndex of ruler.unitOnScreen | enumerate ; track unitIndex) {
-    <div [style.width.px]="unitIndex === 0 ? firstUnitWidth() : ruler.pxInUnit" class="unit-division" [ngClass]="ruler.units">
+    <div [style.width.px]="unitIndex === 0 ? timeRulerService.firstUnitWidth() : ruler.pxInUnit" class="unit-division" [ngClass]="ruler.units">
       {{ startTime() | rulerUnitTime: unitIndex:ruler | rulerUnitLabel: ruler}}
     </div>
   } @empty {

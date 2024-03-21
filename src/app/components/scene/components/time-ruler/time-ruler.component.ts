@@ -12,6 +12,7 @@ import { EnumeratePipe } from '../../../../pipes/enumerate.pipe';
 import { ISceneRuler } from '../../types/tl-scene';
 import { RulerUnitLabelPipe } from './pipes/ruler-unit-label.pipe';
 import { RulerUnitTimePipe } from './pipes/ruler-unit-time.pipe';
+import { TimeRulerService } from './servises/time-ruler.service';
 @Component({
   selector: 'tl-time-ruler',
   standalone: true,
@@ -34,17 +35,9 @@ export class TimeRulerComponent {
     return this.sceneViewService.view().startTime;
   });
 
-  public firstUnitWidth: Signal<number> = computed(() => {
-    const ruler = this.sceneViewService.sceneRuler();
-    if (ruler?.units === 'minutes') {
-      const secondLeft = 60 - this.startTime().getSeconds();
-      return (ruler?.pxInUnit / 60) * secondLeft || 0;
-    }
-    return ruler?.pxInUnit || 0;
-  });
-
   constructor(
     public sceneViewService: SceneViewService,
+    public timeRulerService: TimeRulerService,
     private cdr: ChangeDetectorRef,
   ) {
     effect(() => {

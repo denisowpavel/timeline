@@ -1,9 +1,12 @@
 import { ISceneView } from './tl-scene';
 
 export const INITIAL_SCENE_VIEW: ISceneView = {
-  //lineScale: -0.3, // 1 d
+  // lineScale: -7.2, // 3 y
+  //lineScale: -3.3, // 3 w
+  //lineScale: -1.3, // 3 d
   lineScale: 5.8,    // 3 min
-  startTime: new Date(),
+  //lineScale: 2.6,    // 1 h
+  startTime: new Date(),//
   currentTime: new Date(),
 };
 
