@@ -29,7 +29,7 @@ export class SceneViewService {
       return {
         unitOnScreen: years,
         units: 'years',
-        pxInUnit: pxInMinute * 60 * 24 * 7 * 365,
+        pxInUnit: pxInMinute * 60 * 24 * 365,
       } as ISceneRuler;
     } else if (weeks >= 1) {
       return {
