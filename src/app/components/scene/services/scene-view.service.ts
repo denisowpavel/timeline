@@ -58,6 +58,23 @@ export class SceneViewService {
     }
   });
 
+  public secondInUnit: Signal<number> = computed((): number => {
+    switch (this.sceneRuler()?.units) {
+      case 'minutes':
+        return 60;
+      case 'hours':
+        return 60 * 60;
+      case 'days':
+        return 60 * 60 * 24;
+      case 'weeks':
+        return 60 * 60 * 24 * 7;
+      case 'years':
+        return 60 * 60 * 24 * 365;
+      default:
+        return 1;
+    }
+  });
+
   constructor() {}
 
   public updateViewScale(delta: number): void {

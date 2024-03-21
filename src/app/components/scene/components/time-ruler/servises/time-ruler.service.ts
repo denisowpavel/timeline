@@ -7,7 +7,7 @@ import { SceneViewService } from '../../../services/scene-view.service';
 export class TimeRulerService {
   constructor(public sceneViewService: SceneViewService) {}
 
-  public firstUnitWidth: Signal<number> = computed(() => {
+  public firstUnitWidth: Signal<number> = computed((): number => {
     const ruler = this.sceneViewService.sceneRuler();
     let secondLeft;
     switch (ruler?.units) {
@@ -45,5 +45,21 @@ export class TimeRulerService {
       default:
         return ruler?.pxInUnit || 0;
     }
+  });
+
+  public currentTimeLeft: Signal<number> = computed((): number => {
+    const view = this.sceneViewService.view();
+    const secondShift =
+      (view.currentTime.getTime() - view.startTime.getTime()) / 1000;
+    if (secondShift < 0) {
+      return 0;
+    }
+    const left =
+      (this.sceneViewService.sceneRuler()?.pxInUnit * secondShift) /
+      this.sceneViewService.secondInUnit();
+    if (left > this.sceneViewService.width()) {
+      return 0;
+    }
+    return left;
   });
 }

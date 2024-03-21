@@ -1,6 +1,7 @@
 :host {
   .ruler {
     display: flex;
+    position: relative;
     flex-direction: row;
     margin-bottom: 10px;
     .unit-division {
@@ -23,6 +24,13 @@
       &.years {
         background-color: #ff5555;
       }
+    }
+    .current-time{
+      background-color: red;
+      width: 1px;
+      height: 150px;
+      position: absolute;
+      top: 0;
     }
   }
 }
