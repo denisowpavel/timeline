@@ -12,3 +12,10 @@ export interface ISceneView {
   currentTime: Date;
   cursorTime?: Date;
 }
+
+export interface IRulerUnitLabel {
+  label: string;
+  meta?: string;
+  current?: boolean;
+  round?: boolean;
+}

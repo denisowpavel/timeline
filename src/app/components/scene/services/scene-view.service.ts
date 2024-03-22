@@ -31,7 +31,7 @@ export class SceneViewService {
         units: 'years',
         pxInUnit: pxInMinute * 60 * 24 * 365,
       } as ISceneRuler;
-    } else if (weeks >= 1) {
+    } else if (weeks >= 2) {
       return {
         unitOnScreen: weeks,
         units: 'weeks',

@@ -1,4 +1,3 @@
-<pre>{{ sceneViewService.view().startTime }}</pre>
 @if (ruler) {
   <div class="ruler">
     @for (unitIndex of ruler.unitOnScreen | enumerate; track unitIndex) {
@@ -6,12 +5,23 @@
         [style.width.px]="
           unitIndex === 0 ? timeRulerService.firstUnitWidth() : ruler.pxInUnit
         "
+        [class.unit-division-narrow]="ruler.pxInUnit < 70"
         class="unit-division"
         [ngClass]="ruler.units"
       >
-        {{
-          startTime() | rulerUnitTime: unitIndex : ruler | rulerUnitLabel: ruler
-        }}
+        <ng-container
+          *ngTemplateOutlet="
+            unitLabelContent;
+            context: {
+              index: unitIndex,
+              label:
+                startTime()
+                | rulerUnitTime: unitIndex : ruler
+                | rulerUnitLabel: ruler : currentTime()
+            }
+          "
+        >
+        </ng-container>
       </div>
     } @empty {
       SCALE ERROR
@@ -24,3 +34,14 @@
     }
   </div>
 }
+<ng-template #unitLabelContent let-label="label" let-index="index">
+  <!--  <div [ngClass]="{ current: label.current, first: label.index === 0 }">-->
+  <div
+    [class.current]="label.current"
+    [class.round]="label.round"
+    [class.first]="index === 0"
+  >
+    {{ label.label }}
+    <div class="meta">{{ label.meta }}</div>
+  </div>
+</ng-template>
