@@ -11,7 +11,7 @@ export class RulerUnitTimePipe implements PipeTransform {
     if (!startTime || unitIndex < 0 || !ruler) {
       return new Date();
     }
-    const unitTime = new Date(startTime);
+    let unitTime = new Date(startTime);
     switch (ruler.units) {
       case 'minutes':
         unitTime.setMinutes(startTime.getMinutes() + unitIndex);
@@ -24,6 +24,13 @@ export class RulerUnitTimePipe implements PipeTransform {
         break;
       case 'weeks':
         unitTime.setDate(startTime.getDate() + unitIndex * 7);
+        const prevMonday = new Date(startTime);
+        prevMonday.setDate(
+          prevMonday.getDate() + ((1 - 7 - prevMonday.getDay()) % 7),
+        );
+        unitTime = new Date(
+          prevMonday.getTime() + 60 * 60 * 24 * 7 * unitIndex * 1000,
+        );
         break;
       case 'years':
         unitTime.setFullYear(startTime.getFullYear() + unitIndex);

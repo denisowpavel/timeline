@@ -27,10 +27,14 @@ export class TimeRulerService {
           (23 - this.sceneViewService.view().startTime.getHours()) * 60;
         return (ruler?.pxInUnit / (24 * 60)) * minLeft || 0;
       case 'weeks':
+        let dayOfWeek = this.sceneViewService.view().startTime.getDay();
+        if (dayOfWeek === 0) {
+          dayOfWeek = 7;
+        }
         const hoursLeft =
           24 -
           this.sceneViewService.view().startTime.getHours() +
-          (7 - this.sceneViewService.view().startTime.getDay()) * 24;
+          (7 - dayOfWeek) * 24;
         return (ruler?.pxInUnit / (7 * 24)) * hoursLeft || 0;
       case 'years':
         const start = this.sceneViewService.view().startTime;
