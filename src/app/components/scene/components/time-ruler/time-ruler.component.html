@@ -1,6 +1,6 @@
 @if (ruler) {
   <div class="ruler">
-    @for (unitIndex of ruler.unitOnScreen | enumerate; track unitIndex) {
+    @for (unitIndex of ruler.unitOnScreen + 2 | enumerate; track unitIndex) {
       <div
         [style.width.px]="
           unitIndex === 0 ? timeRulerService.firstUnitWidth() : ruler.pxInUnit
@@ -26,13 +26,14 @@
     } @empty {
       SCALE ERROR
     }
+
+  </div>
     @if (timeRulerService.currentTimeLeft() !== 0) {
       <div
         class="current-time"
         [style.left.px]="timeRulerService.currentTimeLeft()"
       ></div>
     }
-  </div>
 }
 <ng-template #unitLabelContent let-label="label" let-index="index">
   <!--  <div [ngClass]="{ current: label.current, first: label.index === 0 }">-->

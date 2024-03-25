@@ -1,3 +1,14 @@
-<p>{{timeSlot().label}}</p>
-<p>{{timeSlot().start}}</p>
-<p>{{timeSlot().end}}</p>
+<div
+  class="time-slot"
+  [style.left.px]="currentSlotLeft()"
+  [style.width.px]="currentSlotWidth()"
+  [style.background-color]="timeSlot().meta?.color"
+>
+  <div class="content">
+    <div class="time">
+      {{ timeSlot().start | date: "hh:mm" }}-
+      {{ timeSlot().end | date: "hh:mm" }}
+    </div>
+    <p>{{ timeSlot().label }}</p>
+  </div>
+</div>

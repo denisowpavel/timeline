@@ -1,13 +1,15 @@
-import {ChangeDetectionStrategy, Component, input, InputSignal} from '@angular/core';
+import {ChangeDetectionStrategy, Component, computed, input, InputSignal, Signal} from '@angular/core';
 import {ITimeSlot} from "../../types";
+import {SceneViewService} from "../../services/scene-view.service";
+import {DatePipe} from "@angular/common";
 
 @Component({
   selector: 'tl-slot',
   standalone: true,
-  imports: [],
+  imports: [DatePipe],
   templateUrl: './slot.component.html',
   styleUrl: './slot.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SlotComponent {
   timeSlot: InputSignal<ITimeSlot> = input({
@@ -16,4 +18,14 @@ export class SlotComponent {
     start: new Date(),
     end: new Date(),
   });
+  public currentSlotLeft: Signal<number> = computed((): number => {
+    const left = this.sceneViewService.elementStyleLeft(this.timeSlot().start);
+    return left;
+  });
+
+  public currentSlotWidth: Signal<number> = computed((): number => {
+    const width = this.sceneViewService.elementStyleLeft(this.timeSlot().end);
+    return width - this.currentSlotLeft();
+  });
+  constructor(public sceneViewService: SceneViewService) {}
 }

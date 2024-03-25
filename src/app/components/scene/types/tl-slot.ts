@@ -3,12 +3,14 @@ export interface ITimeSlot {
   start: Date;
   end: Date;
   label: string;
-  meta?: string;
+  meta?: ITimeSlotMeta;
 }
 
 export interface ITimeSlotList  {
   id: number;
   slots: ITimeSlot[];
   label?: string;
-  meta?: string;
+}
+export interface ITimeSlotMeta {
+  color?: string;
 }

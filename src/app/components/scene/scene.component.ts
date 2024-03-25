@@ -25,12 +25,15 @@ export class SceneComponent implements OnInit, AfterViewInit {
   @HostListener('document:mousewheel', ['$event']) onScrollEvent(
     event: WheelEvent,
   ): void {
-    if (event.shiftKey && event.altKey && event.deltaY !== 0) {
+    // if (event.shiftKey && event.altKey && event.deltaY !== 0) {
+    if (!event.shiftKey && !event.altKey && event.deltaY !== 0) {
       // TODO: add zone-flags to polyfills and use event.preventDefault() + altKey only;
-      this.updateScale(event.deltaY);
+      // this.updateScale(event.deltaY);
+      this.updateStartTime(event.deltaY);
     }
     if (event.deltaX !== 0 || (event.deltaY !== 0 && event.shiftKey && !event.altKey)) {
-      this.updateStartTime(event.deltaX || event.deltaY);
+      // this.updateStartTime(event.deltaX || event.deltaY);
+      this.updateScale(event.deltaX || event.deltaY);
     }
   }
   @HostListener('window:resize', ['$event']) onComponentResize() {

@@ -1,3 +1,21 @@
-:host{
-    border: 1px solid #fcc;
+:host {
+  position: relative;
+  height: 78px;
+  .time-slot {
+    background-color: #d0dffc;
+    font-size: small;
+    font-weight: 200;
+    font-family: system-ui;
+    border-radius: 5px;
+    position: absolute;
+    box-shadow: 6px 2px 8px -4px #0c0c0c10 inset;
+    & .content {
+      padding: 10px;
+      min-width: 100px;
+      & .time {
+        color: rgba(0, 0, 0, 0.3);
+        font-size: x-small;
+      }
+    }
+  }
 }

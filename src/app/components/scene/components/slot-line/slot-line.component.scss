@@ -1,4 +1,6 @@
-:host{
+:host {
   display: flex;
-  border: 1px solid #ccc;
+  box-shadow: inset 0px -1px 0px 0px #e7e8ec;
+  overflow-x: hidden;
+  padding: 3px 0;
 }

@@ -18,7 +18,7 @@ export class TimeRulerService {
         secondLeft =
           60 -
           this.sceneViewService.view().startTime.getSeconds() +
-          (60 - this.sceneViewService.view().startTime.getMinutes()) * 60;
+          (59 - this.sceneViewService.view().startTime.getMinutes()) * 60;
         return (ruler?.pxInUnit / (60 * 60)) * secondLeft || 0;
       case 'days':
         const minLeft =

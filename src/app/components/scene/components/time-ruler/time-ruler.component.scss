@@ -1,10 +1,11 @@
 :host {
   .ruler {
-    display: flex;
+    white-space: nowrap;
     position: relative;
-    flex-direction: row;
     margin-bottom: 10px;
+    overflow-x: hidden;
     .unit-division {
+      display: inline-block;
       container-name: sidebar;
       box-shadow: inset -1px 1px 0px 0px #e7e8ec;
       min-width: 1px;
@@ -27,6 +28,7 @@
           content: "▪";
           color: #ff3233;
           font-size: small;
+          position: absolute;
         }
       }
       & .meta {
@@ -53,14 +55,16 @@
         }
       }
     }
+  }
     .current-time {
+      position: absolute;
       background-color: red;
       width: 1px;
-      height: 150px;
-      position: absolute;
+      height: 350px;
       top: 0;
+      z-index: 10;
     }
-  }
+
   @container sidebar (min-width: 700px) {
     background-color: red;
   }

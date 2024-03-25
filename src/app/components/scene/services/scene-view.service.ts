@@ -134,6 +134,7 @@ export class SceneViewService {
     if (secondShift < 0) {
       return 0;
     }
+    console.log(time, secondShift, this.pxInMinute());
     return (this.sceneRuler()?.pxInUnit * secondShift) / this.secondInUnit();
   }
 }
