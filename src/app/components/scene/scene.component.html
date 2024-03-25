@@ -1,5 +1,7 @@
 <tl-time-ruler />
-<tl-slot-line />
-<tl-slot-line />
+@for (slotList of slotCollection; track slotList.id) {
+  <tl-slot-line [list]="slotList" />
+}
 <pre>{{ sceneViewService.view() | json }}</pre>
 <pre>{{ sceneViewService.width() | json }}</pre>
+<pre>{{ slotCollection | json }}</pre>

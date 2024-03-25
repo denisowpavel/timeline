@@ -1,10 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import {
-  IRulerUnitLabel,
-  ISceneRuler,
-  unitsType,
-} from '../../../types/tl-scene';
+import { unitsType } from '../../../types/tl-scene';
 import { DAY_NAMES } from '../../../types/const';
+import { IRulerUnitLabel, ISceneRuler } from '../../../types';
 
 @Pipe({
   name: 'rulerUnitLabel',
@@ -71,7 +68,9 @@ export class RulerUnitLabelPipe implements PipeTransform {
             ? unitTime.getFullYear().toString()
             : `${Math.floor(dayFromNewYear / 7) + 1}`,
           meta: `${dd < 10 ? '0' : ''}${dd}.${mm < 10 ? '0' : ''}${mm} - ${ddLast < 10 ? '0' : ''}${ddLast}.${mmLast < 10 ? '0' : ''}${mmLast}`,
-          current: unitTime.getTime() <= currentTime.getTime() && currentTime.getTime() < lastDay.getTime(),
+          current:
+            unitTime.getTime() <= currentTime.getTime() &&
+            currentTime.getTime() < lastDay.getTime(),
           round: newYearOnTheWeek,
         };
 

@@ -6,13 +6,13 @@ import {
   effect,
   Signal,
 } from '@angular/core';
-import {JsonPipe, NgIf, NgClass, NgTemplateOutlet} from '@angular/common';
+import { JsonPipe, NgIf, NgClass, NgTemplateOutlet } from '@angular/common';
 import { SceneViewService } from '../../services/scene-view.service';
 import { EnumeratePipe } from '../../../../pipes/enumerate.pipe';
-import { ISceneRuler } from '../../types/tl-scene';
 import { RulerUnitLabelPipe } from './pipes/ruler-unit-label.pipe';
 import { RulerUnitTimePipe } from './pipes/ruler-unit-time.pipe';
 import { TimeRulerService } from './servises/time-ruler.service';
+import { ISceneRuler } from '../../types';
 @Component({
   selector: 'tl-time-ruler',
   standalone: true,
@@ -29,6 +29,7 @@ import { TimeRulerService } from './servises/time-ruler.service';
   styleUrl: './time-ruler.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
+
 export class TimeRulerComponent {
   public ruler?: ISceneRuler;
 

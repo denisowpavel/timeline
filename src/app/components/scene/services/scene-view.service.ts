@@ -1,10 +1,10 @@
 import { computed, Injectable, Signal, signal } from '@angular/core';
-import { ISceneRuler, ISceneView } from '../types/tl-scene';
 import {
   INITIAL_SCENE_VIEW,
   SCROLL_SENSITIVITY,
   TIME_SENSITIVITY,
 } from '../types/const';
+import { ISceneRuler, ISceneView } from '../types';
 
 @Injectable({
   providedIn: 'root',

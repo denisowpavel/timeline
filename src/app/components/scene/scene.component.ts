@@ -4,13 +4,14 @@ import {
   Component,
   ElementRef,
   HostListener,
+  Input,
   OnInit,
-  signal,
 } from '@angular/core';
 import { SlotLineComponent } from './components/slot-line/slot-line.component';
 import { TimeRulerComponent } from './components/time-ruler/time-ruler.component';
 import { JsonPipe } from '@angular/common';
 import { SceneViewService } from './services/scene-view.service';
+import { ITimeSlotList } from './types';
 
 @Component({
   selector: 'tl-scene',
@@ -24,11 +25,12 @@ export class SceneComponent implements OnInit, AfterViewInit {
   @HostListener('document:mousewheel', ['$event']) onScrollEvent(
     event: WheelEvent,
   ): void {
-    if (!event.shiftKey && !event.altKey && event.deltaY !== 0) {
-      this.updateStartTime(event.deltaX || event.deltaY);
-    }
-    if (event.deltaX !== 0 || (event.deltaY !== 0 && event.shiftKey)) {
+    if (event.shiftKey && event.altKey && event.deltaY !== 0) {
+      // TODO: add zone-flags to polyfills and use event.preventDefault() + altKey only;
       this.updateScale(event.deltaY);
+    }
+    if (event.deltaX !== 0 || (event.deltaY !== 0 && event.shiftKey && !event.altKey)) {
+      this.updateStartTime(event.deltaX || event.deltaY);
     }
   }
   @HostListener('window:resize', ['$event']) onComponentResize() {
@@ -36,6 +38,8 @@ export class SceneComponent implements OnInit, AfterViewInit {
       this.elementRef.nativeElement.getBoundingClientRect().width,
     );
   }
+  @Input() slotCollection?: ITimeSlotList[];
+
   constructor(
     public sceneViewService: SceneViewService,
     private elementRef: ElementRef,

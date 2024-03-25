@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { ISceneRuler } from '../../../types/tl-scene';
+import { ISceneRuler } from '../../../types';
 
 @Pipe({
   name: 'rulerUnitTime',
@@ -25,8 +25,8 @@ export class RulerUnitTimePipe implements PipeTransform {
       case 'weeks':
         unitTime.setDate(startTime.getDate() + unitIndex * 7);
         const prevMonday = new Date(startTime);
-        prevMonday.setMinutes(0)
-        prevMonday.setHours(0)
+        prevMonday.setMinutes(0);
+        prevMonday.setHours(0);
         prevMonday.setDate(
           prevMonday.getDate() + ((1 - 7 - prevMonday.getDay()) % 7),
         );

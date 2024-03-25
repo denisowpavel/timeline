@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {ChangeDetectionStrategy, Component, input, InputSignal} from '@angular/core';
+import {ITimeSlot} from "../../types";
 
 @Component({
   selector: 'tl-slot',
@@ -9,5 +10,10 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SlotComponent {
-
+  timeSlot: InputSignal<ITimeSlot> = input({
+    id: 0,
+    label: '',
+    start: new Date(),
+    end: new Date(),
+  });
 }

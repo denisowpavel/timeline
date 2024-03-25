@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import {SlotComponent} from "../slot/slot.component";
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { SlotComponent } from '../slot/slot.component';
+import { ITimeSlotList } from '../../types';
 
 @Component({
   selector: 'tl-slot-line',
@@ -9,4 +10,6 @@ import {SlotComponent} from "../slot/slot.component";
   styleUrl: './slot-line.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SlotLineComponent {}
+export class SlotLineComponent {
+  @Input() list?: ITimeSlotList;
+}
