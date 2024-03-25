@@ -62,7 +62,7 @@ export class RulerUnitLabelPipe implements PipeTransform {
         const dayFromNewYear =
           (unitTime.getTime() - newYear.getTime()) / (60 * 60 * 24 * 1000);
         const newYearOnTheWeek = dayFromNewYear < 7;
-        const lastDay = new Date(unitTime)
+        const lastDay = new Date(unitTime);
         lastDay.setDate(lastDay.getDate() + 6);
         const mmLast = lastDay.getMonth() + 1;
         const ddLast = lastDay.getDate();
@@ -71,7 +71,7 @@ export class RulerUnitLabelPipe implements PipeTransform {
             ? unitTime.getFullYear().toString()
             : `${Math.floor(dayFromNewYear / 7) + 1}`,
           meta: `${dd < 10 ? '0' : ''}${dd}.${mm < 10 ? '0' : ''}${mm} - ${ddLast < 10 ? '0' : ''}${ddLast}.${mmLast < 10 ? '0' : ''}${mmLast}`,
-          current: isCurrent,
+          current: unitTime.getTime() <= currentTime.getTime() && currentTime.getTime() < lastDay.getTime(),
           round: newYearOnTheWeek,
         };
 
@@ -104,16 +104,7 @@ export class RulerUnitLabelPipe implements PipeTransform {
         return sameYear && sameMonth && sameDate;
 
       case 'weeks':
-        if (!sameYear) {
-          return false;
-        }
-        const prevMonday = new Date(time1);
-        prevMonday.setDate(
-          prevMonday.getDate() + ((1 - 7 - prevMonday.getDay()) % 7),
-        );
-        const dayBetween =
-          (prevMonday.getTime() - time2.getTime()) / (60 * 60 * 24 * 1000);
-        return dayBetween > -7 && dayBetween <= 0;
+        return false;
 
       case 'years':
         return sameYear;

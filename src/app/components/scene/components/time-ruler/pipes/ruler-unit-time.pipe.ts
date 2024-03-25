@@ -25,6 +25,8 @@ export class RulerUnitTimePipe implements PipeTransform {
       case 'weeks':
         unitTime.setDate(startTime.getDate() + unitIndex * 7);
         const prevMonday = new Date(startTime);
+        prevMonday.setMinutes(0)
+        prevMonday.setHours(0)
         prevMonday.setDate(
           prevMonday.getDate() + ((1 - 7 - prevMonday.getDay()) % 7),
         );
