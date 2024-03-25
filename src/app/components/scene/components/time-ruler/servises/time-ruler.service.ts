@@ -52,15 +52,9 @@ export class TimeRulerService {
   });
 
   public currentTimeLeft: Signal<number> = computed((): number => {
-    const view = this.sceneViewService.view();
-    const secondShift =
-      (view.currentTime.getTime() - view.startTime.getTime()) / 1000;
-    if (secondShift < 0) {
-      return 0;
-    }
-    const left =
-      (this.sceneViewService.sceneRuler()?.pxInUnit * secondShift) /
-      this.sceneViewService.secondInUnit();
+    const left = this.sceneViewService.elementStyleLeft(
+      this.sceneViewService.view().currentTime,
+    );
     if (left > this.sceneViewService.width()) {
       return 0;
     }

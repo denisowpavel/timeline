@@ -127,4 +127,13 @@ export class SceneViewService {
       };
     });
   }
+
+  public elementStyleLeft(time: Date): number {
+    const secondShift =
+      (time.getTime() - this.view().startTime.getTime()) / 1000;
+    if (secondShift < 0) {
+      return 0;
+    }
+    return (this.sceneRuler()?.pxInUnit * secondShift) / this.secondInUnit();
+  }
 }
