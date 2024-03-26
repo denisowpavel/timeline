@@ -9,9 +9,8 @@ export const INITIAL_SCENE_VIEW: ISceneView = {
   //lineScale: -3.3,   // 3 w
   //lineScale: -7.2,   // 3 y
   lineScale: 0.4,
-  startTime: new Date('2024-03-25T16:00:00.000Z'), //
-  currentTime: new Date(),
-  //currentTime: new Date('2024-03-21T15:00:00.000Z'),
+  startTime: new Date(),
+  currentTime: new Date(), //2024-03-26T16:00:00.000Z
 };
 
 export const SCROLL_SENSITIVITY = -0.001;

@@ -13,6 +13,7 @@ import { JsonPipe } from '@angular/common';
 import { SceneViewService } from './services/scene-view.service';
 import { ITimeSlotList } from './types';
 
+const INITIAL_SCENE_SHIFT = -1;
 @Component({
   selector: 'tl-scene',
   standalone: true,
@@ -47,7 +48,9 @@ export class SceneComponent implements OnInit, AfterViewInit {
     public sceneViewService: SceneViewService,
     private elementRef: ElementRef,
   ) {}
-  ngOnInit() {}
+  ngOnInit() {
+    this.sceneViewService.updateStartTime(INITIAL_SCENE_SHIFT);
+  }
   ngAfterViewInit() {
     this.sceneViewService.width.set(
       this.elementRef.nativeElement.getBoundingClientRect().width,

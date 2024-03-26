@@ -49,7 +49,6 @@ export class TimeRulerComponent {
     effect(() => {
       this.ruler = this.sceneViewService.sceneRuler();
       this.cdr.detectChanges();
-      console.log('------')
     });
   }
 }
