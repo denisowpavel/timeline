@@ -1,6 +1,7 @@
 :host {
   position: relative;
   height: 78px;
+  will-change: left;
   .time-slot {
     background-color: #d0dffc;
     font-size: small;

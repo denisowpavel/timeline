@@ -15,7 +15,7 @@ export const INITIAL_SCENE_VIEW: ISceneView = {
 };
 
 export const SCROLL_SENSITIVITY = -0.001;
-export const TIME_SENSITIVITY = -1;
+export const TIME_SENSITIVITY = 1;
 export const DAY_NAMES = [
   'Sunday',
   'Monday',

@@ -5,6 +5,7 @@
     margin-bottom: 10px;
     overflow-x: hidden;
     .unit-division {
+      will-change: left;
       display: inline-block;
       container-name: sidebar;
       box-shadow: inset -1px 1px 0px 0px #e7e8ec;
@@ -57,6 +58,7 @@
     }
   }
     .current-time {
+      will-change: left;
       position: absolute;
       background-color: red;
       width: 1px;
