@@ -5,13 +5,22 @@ import {
   ElementRef,
   HostListener,
   Input,
+  OnDestroy,
   OnInit,
 } from '@angular/core';
 import { SlotLineComponent } from './components/slot-line/slot-line.component';
 import { TimeRulerComponent } from './components/time-ruler/time-ruler.component';
 import { JsonPipe } from '@angular/common';
 import { SceneViewService } from './services/scene-view.service';
-import { ITimeSlotList } from './types';
+import { ITimeSlotList, unitsType } from './types';
+import { SceneHelpersService } from './services/scene-helpers.service';
+import {
+  interval,
+  map,
+  merge,
+  Observable,
+  Subject,
+} from 'rxjs';
 
 const INITIAL_SCENE_SHIFT = -1;
 @Component({
@@ -22,7 +31,8 @@ const INITIAL_SCENE_SHIFT = -1;
   styleUrl: './scene.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SceneComponent implements OnInit, AfterViewInit {
+export class SceneComponent implements OnInit, OnDestroy, AfterViewInit {
+  private destroyed$ = new Subject();
   @HostListener('document:mousewheel', ['$event']) onScrollEvent(
     event: WheelEvent,
   ): void {
@@ -32,7 +42,10 @@ export class SceneComponent implements OnInit, AfterViewInit {
       // this.updateScale(event.deltaY);
       this.updateStartTime(event.deltaY);
     }
-    if (event.deltaX !== 0 || (event.deltaY !== 0 && event.shiftKey && !event.altKey)) {
+    if (
+      event.deltaX !== 0 ||
+      (event.deltaY !== 0 && event.shiftKey && !event.altKey)
+    ) {
       // this.updateStartTime(event.deltaX || event.deltaY);
       this.updateScale(event.deltaX || event.deltaY);
     }
@@ -47,9 +60,22 @@ export class SceneComponent implements OnInit, AfterViewInit {
   constructor(
     public sceneViewService: SceneViewService,
     private elementRef: ElementRef,
+    private sceneHelpersService: SceneHelpersService,
   ) {}
   ngOnInit() {
     this.sceneViewService.updateStartTime(INITIAL_SCENE_SHIFT);
+
+    const $currentTimeUpdateTick: Observable<unitsType> = merge(
+      interval(1000).pipe(map(() => 'minutes' as unitsType)),
+      interval(1000 * 60).pipe(map(() => 'hours' as unitsType)),
+      interval(1000 * 60 * 60).pipe(map(() => 'days' as unitsType)),
+    );
+    $currentTimeUpdateTick.subscribe((type) => {
+      if (type === this.sceneViewService.sceneRuler().units) {
+        this.sceneHelpersService.tickSound(); // FOR DEBUG ONLY
+        this.sceneViewService.resetCurrentTime();
+      }
+    });
   }
   ngAfterViewInit() {
     this.sceneViewService.width.set(
@@ -63,6 +89,9 @@ export class SceneComponent implements OnInit, AfterViewInit {
   updateStartTime(delta: number) {
     this.sceneViewService.updateStartTime(delta);
   }
-
+  public ngOnDestroy(): void {
+    this.destroyed$.next(true);
+    this.destroyed$.complete();
+  }
   protected readonly JsonPipe = JsonPipe;
 }

@@ -51,7 +51,7 @@ export class SceneHelpersService {
           id: i,
           label: this.generatedName,
           start: new Date(new Date(start.getTime() + timeShift)),
-          end: new Date(new Date(start.getTime() + timeShift+duration)),
+          end: new Date(new Date(start.getTime() + timeShift + duration)),
           meta: {
             color: this.generatedColors,
           },
@@ -64,7 +64,7 @@ export class SceneHelpersService {
         slots: timeSlots,
       } as ITimeSlotList);
     }
-    console.log(timeSlotCollection)
+    console.log(timeSlotCollection);
     return timeSlotCollection;
   }
   timeSlotCollectionTestMOC(): ITimeSlotList[] {
@@ -133,5 +133,10 @@ export class SceneHelpersService {
         ],
       },
     ] as ITimeSlotList[];
+  }
+
+  tickSound(): void {
+    const beepSound = new Audio('./assets/clock-tick-sfx.mp3');
+    beepSound.play();
   }
 }

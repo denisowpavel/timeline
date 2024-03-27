@@ -128,6 +128,13 @@ export class SceneViewService {
     });
   }
 
+  public resetCurrentTime(): void {
+    this.view.update((view) => ({
+      ...view,
+      currentTime: new Date(),
+    }));
+  }
+
   public elementStyleLeft(time: Date): number {
     const secondShift =
       (time.getTime() - this.view().startTime.getTime()) / 1000;
